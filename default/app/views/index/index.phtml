@@ -1,0 +1,41 @@
+<link rel="stylesheet" href="<?php echo PUBLIC_PATH ?>/jquery-ui-1.11.4/jquery-ui.min.css">
+<script type="text/javascript" src="<?php echo PUBLIC_PATH ?>/jquery-ui-1.11.4/jquery-ui.min.js"></script>
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <center><h2>Formulario</h2></center>
+        <?php echo Form::open() ?>
+        <div class="form-group">
+            <label for="">Productos</label>
+            <input type="text" class="form-control" id="codigo-producto" placeholder="Codigo de producto">
+            <?php echo Form::text("productos_espera.nombre","class='form-control' placeholder='Nombre del producto' readonly") ?>
+        </div>
+        <div class="form-group">
+            <label for="">Almacen</label>
+            <?php echo Form::text("productos_espera.almacen","class='form-control'") ?>
+        </div>
+        <div class="form-group">
+            <label for="">Nombre del Cliente</label>
+            <?php echo Form::text("productos_espera.cliente","class='form-control'") ?>
+        </div>
+        <div class="form-group">
+            <label for="">Teléfono</label>
+            <?php echo Form::text("productos_espera.telefono","class='form-control'") ?>
+        </div>
+        <div class="form-group">
+            <label for="">Observacion</label>
+            <?php echo Form::textarea("productos_espera.observacion","class='form-control'") ?>
+        </div>
+        <?php echo Form::hidden("productos_espera.fecha",NULL,date("Y-m-d H:i:s")) ?>
+        <?php echo Form::submit("Guardar","class='btn btn-success'") ?>
+        <?php echo Form::close() ?>
+    </div>
+    <div class="col-md-4"></div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#codigo-producto").keyup(function(){
+            
+        });
+    })
+</script>
