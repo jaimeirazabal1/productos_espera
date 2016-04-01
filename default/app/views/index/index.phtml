@@ -3,12 +3,14 @@
 <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-        <center><h2>Formulario</h2></center>
-        <?php echo Form::open() ?>
+        <center><h2>Formulario</h2>
+        <?php echo Html::img("spin.gif","Cargando...","class='cargar hide'") ?>
+        </center>
+        <?php echo Form::open("","post","autocomplete='off'") ?>
         <div class="form-group">
             <label for="">Productos</label>
-            <input type="text" class="form-control" id="codigo-producto" placeholder="Codigo de producto">
-            <?php echo Form::text("productos_espera.nombre","class='form-control' placeholder='Nombre del producto' readonly") ?>
+            <input type="text" class="form-control" name="productos_espera[stockid]" id="codigo-producto" placeholder="Codigo de producto">
+            <?php echo Form::text("productos_espera.nombre","class='form-control' placeholder='Nombre del producto' ") ?>
         </div>
         <div class="form-group">
             <label for="">Almacen</label>
@@ -35,7 +37,45 @@
 <script type="text/javascript">
     $(document).ready(function(){
         $("#codigo-producto").keyup(function(){
-            
+            var valor = $(this).val();
+            cargando(true)
+            if (valor) {
+                $.ajax({
+                    url:"index/buscar_por_codigo_producto/"+valor,
+                    success:function(r){
+                        cargando(false)
+
+                        if (r.length) {
+                            resultados = [];
+                            for (var i = 0; i < r.length; i++) {
+                                resultados.push({label:r[i].description,value:r[i].stockid,id:r[i].stockid})
+                            }
+                            $( "#productos_espera_nombre" ).autocomplete({
+                                minLength: 0,
+                                source: resultados,
+                                select:function(event, selected){
+                                    console.log(selected)
+                                    //$("#codigo-producto").val(b.item.value)
+                                    $("#productos_espera_nombre").val(selected.item.label)
+                                    $("#codigo-producto").val(selected.item.value)
+                                }
+                            }).on("focus", function () {
+                                $(this).autocomplete("search", "");
+                            });
+
+                        }
+                    }
+                })
+
+            }
         });
     })
+    function cargando(boleano){
+        if (boleano) {
+            $(".cargar").removeClass("hide")
+        }else{
+            $(".cargar").addClass("hide")
+
+        }
+    }
 </script>
