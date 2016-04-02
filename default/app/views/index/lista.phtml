@@ -1,0 +1,136 @@
+<link rel="stylesheet" href="<?php echo PUBLIC_PATH ?>DataTables-1.10.11/media/css/jquery.dataTables.css">
+<script type="text/javascript" src="<?php echo PUBLIC_PATH ?>DataTables-1.10.11/media/js/jquery.dataTables.js"></script>
+<div class="row">	
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		
+		<div class="row">
+			<div class="col-md-6">
+				<h2>Productos en espera</h2>
+			</div>
+			<div class="col-md-6">
+				<br>
+				<?php echo Html::link("","Agregar Producto","class='btn btn-success'") ?>
+			</div>
+		</div>
+		<?php View::content() ?>
+		<table id="example" class="display table table-striped table-bordered">
+			<thead>
+				<tr>
+				<th>Id</th>
+				<th>Producto</th>
+				<th>Stock</th>
+				<th>Nombre de Producto</th>
+				<th>Sucursal</th>
+				<th>Cliente</th>
+				<th>Telefono</th>
+				<th>Estado</th>
+				<th>Fecha</th>
+				<th></th>
+				</tr>
+			</thead>
+	        <tfoot>
+	            <tr>
+				<th>Id</th>
+				<th>Producto</th>
+				<th>Stock</th>
+				<th>Nombre de Producto</th>
+				<th>Sucursal</th>
+				<th>Cliente</th>
+				<th>Telefono</th>
+				<th>Estado</th>
+				<th>Fecha</th>
+				<th></th>
+	            </tr>
+	        </tfoot>
+			<?php foreach ($registros as $key => $value): ?>
+				<tr>
+					<td><?php echo $value->id ?></td>
+					<td><?php echo $value->producto ?></td>
+					<td><?php echo Load::model("locstock")->sumar_quantity_by_stockid($value->producto) ?></td>
+					<td><?php echo $value->nombre_producto ?></td>
+					<td><?php echo $value->sucursal ?></td>
+					<td><?php echo $value->cliente ?></td>
+					<td><?php echo $value->telefono ?></td>
+					<td><?php echo $value->nombre ?></td>
+					<td><?php echo $value->fecha ?></td>
+					<td><?php echo Html::link("index/ver/{$value->id}","ver","class='btn btn-default'") ?></td>
+				</tr>
+			<?php endforeach ?>
+		</table>
+	</div>
+</div>
+<div class="col-md-1"></div>
+
+<style type="text/css">
+	tfoot input {
+        width: 100%;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+    tfoot {
+    display: table-header-group;
+}
+</style>
+<script type="text/javascript">
+
+
+$(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example tfoot th').each( function () {
+        // var title = $(this).text();
+        var title = $('#example tfoot th').eq( $(this).index() ).text();
+        $(this).html( '<input type="text" placeholder="Buscar '+title+'" />' );
+    } );
+ 
+    // DataTable
+    var table = $('#example').DataTable({
+    	language:{
+		    "sProcessing":     "Procesando...",
+		    "sLengthMenu":     "Mostrar _MENU_ registros",
+		    "sZeroRecords":    "No se encontraron resultados",
+		    "sEmptyTable":     "Ningún dato disponible en esta tabla",
+		    "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+		    "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+		    "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+		    "sInfoPostFix":    "",
+		    "sSearch":         "Buscar:",
+		    "sUrl":            "",
+		    "sInfoThousands":  ",",
+		    "sLoadingRecords": "Cargando...",
+		    "oPaginate": {
+		        "sFirst":    "Primero",
+		        "sLast":     "Último",
+		        "sNext":     "Siguiente",
+		        "sPrevious": "Anterior"
+		    },
+		    "oAria": {
+		        "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+		        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+		    }
+		},
+		initComplete: function ()
+		{
+		  var r = $('#MyDataTable tfoot tr');
+		  r.find('th').each(function(){
+		    $(this).css('padding', 8);
+		  });
+		  $('#MyDataTable thead').append(r);
+		  $('#search_0').css('text-align', 'center');
+		}
+    });
+ 
+    // Apply the search
+    table.columns().every( function () {
+        var that = this;
+ 
+        $( 'input', this.footer() ).on( 'keyup change', function () {
+            if ( that.search() !== this.value ) {
+                that
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+} );
+</script>

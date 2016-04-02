@@ -1,0 +1,16 @@
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
+		<h1>Nuevo Estado</h1>
+		<?php View::content() ?>
+		<?php echo Form::open() ?>
+		<div class="form-group">
+			<label for="">Nombre</label>
+			<?php echo Form::text("estado.nombre","class='form-control'") ?>
+		</div>
+		<?php echo Form::submit("Agregar","class='btn btn-success'") ?>
+		<?php echo Html::link("estado/lista","Ir a la Lista","class='btn btn-success'") ?>
+		<?php echo Form::close() ?>
+	</div>
+	<div class="col-md-4"></div>
+</div>

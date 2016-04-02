@@ -1,0 +1,48 @@
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-10">
+		<h2>Estado</h2>
+		<?php View::content() ?>
+		<div class="col-md-6">
+			<h2>Selecciona el estado</h2>
+			<?php echo Form::open() ?>
+			<div class="form-group">
+				<label for="">Estado</label>
+				<?php echo Form::hidden('productos_espera.id') ?>
+				<?php echo Form::dbselect("productos_espera.estado_id",NULL,NULL,"Selecciona el estado","class='form-control'") ?>
+			</div>
+			<?php echo Form::submit("Actualizar Estado","class='btn btn-success'") ?>
+			<?php echo Form::close() ?>
+		</div>
+		<div class="col-md-6">
+			<h2>Informacion</h2>
+			<table class="table table-bordered">
+				<thead>
+					<th>Sotckid</th>
+					<th><?php echo $productos_espera->producto ?></th>
+				</thead>
+				<thead>
+					<th>Nombre producto</th>
+					<th><?php echo $productos_espera->nombre_producto ?></th>
+				</thead>
+				<thead>
+					<th>Sucursal</th>
+					<th><?php echo $productos_espera->sucursal ?></th>
+				</thead>
+				<thead>
+					<th>Cliente</th>
+					<th><?php echo $productos_espera->cliente ?></th>
+				</thead>
+				<thead>
+					<th>Telefono</th>
+					<th><?php echo $productos_espera->telefono ?></th>
+				</thead>
+				<thead>
+					<th>Fecha</th>
+					<th><?php echo $productos_espera->fecha ?></th>
+				</thead>
+			</table>
+		</div>
+	</div>
+	<div class="col-md-1"></div>
+</div>

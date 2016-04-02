@@ -4,25 +4,32 @@
     <div class="col-md-4"></div>
     <div class="col-md-4">
         <center><h2>Formulario</h2>
+        <?php View::content() ?>
         <?php echo Html::img("spin.gif","Cargando...","class='cargar hide'") ?>
         </center>
         <?php echo Form::open("","post","autocomplete='off'") ?>
         <div class="form-group">
             <label for="">Productos</label>
-            <input type="text" class="form-control" name="productos_espera[stockid]" id="codigo-producto" placeholder="Codigo de producto">
-            <?php echo Form::text("productos_espera.nombre","class='form-control' placeholder='Nombre del producto' ") ?>
+            <input type="text" class="form-control" name="productos_espera[producto]" id="codigo-producto" placeholder="Codigo de producto">
+            <?php echo Form::text("productos_espera.nombre_producto","class='form-control' required placeholder='Nombre del producto' ") ?>
         </div>
         <div class="form-group">
             <label for="">Almacen</label>
-            <?php echo Form::text("productos_espera.almacen","class='form-control'") ?>
+            <?php echo Form::select("productos_espera.sucursal",$almacenes,"class='form-control'") ?>
         </div>
-        <div class="form-group">
-            <label for="">Nombre del Cliente</label>
-            <?php echo Form::text("productos_espera.cliente","class='form-control'") ?>
-        </div>
-        <div class="form-group">
-            <label for="">Teléfono</label>
-            <?php echo Form::text("productos_espera.telefono","class='form-control'") ?>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Nombre del Cliente</label>
+                    <?php echo Form::text("productos_espera.cliente","class='form-control'") ?>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="">Teléfono</label>
+                    <?php echo Form::text("productos_espera.telefono","class='form-control'") ?>
+                </div>  
+            </div>
         </div>
         <div class="form-group">
             <label for="">Observacion</label>
@@ -30,10 +37,12 @@
         </div>
         <?php echo Form::hidden("productos_espera.fecha",NULL,date("Y-m-d H:i:s")) ?>
         <?php echo Form::submit("Guardar","class='btn btn-success'") ?>
+        <?php echo Html::link("index/lista","Lista de Productos","class='btn btn-success'") ?>
         <?php echo Form::close() ?>
     </div>
     <div class="col-md-4"></div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $("#codigo-producto").keyup(function(){
@@ -48,16 +57,17 @@
                         if (r.length) {
                             resultados = [];
                             for (var i = 0; i < r.length; i++) {
-                                resultados.push({label:r[i].description,value:r[i].stockid,id:r[i].stockid})
+                                resultados.push({label:r[i].description,id:r[i].stockid})
                             }
-                            $( "#productos_espera_nombre" ).autocomplete({
+                            $( "#productos_espera_nombre_producto" ).autocomplete({
                                 minLength: 0,
-                                source: resultados,
+                                source: resultados
+                                ,
                                 select:function(event, selected){
                                     console.log(selected)
                                     //$("#codigo-producto").val(b.item.value)
-                                    $("#productos_espera_nombre").val(selected.item.label)
-                                    $("#codigo-producto").val(selected.item.value)
+                                    $("#productos_espera_nombre_producto").val(selected.item.label)
+                                    $("#codigo-producto").val(selected.item.id)
                                 }
                             }).on("focus", function () {
                                 $(this).autocomplete("search", "");
