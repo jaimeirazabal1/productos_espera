@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 02-04-2016 a las 10:17:35
+-- Tiempo de generación: 02-04-2016 a las 10:52:01
 -- Versión del servidor: 10.1.9-MariaDB
 -- Versión de PHP: 5.6.15
 
@@ -36,7 +36,9 @@ CREATE TABLE `estado` (
 --
 
 INSERT INTO `estado` (`id`, `nombre`) VALUES
-(1, 'Estado 1');
+(1, 'Estado 1'),
+(2, 'Estado 2'),
+(3, 'Estado 3');
 
 -- --------------------------------------------------------
 
@@ -227,18 +229,21 @@ CREATE TABLE `productos_espera` (
   `cliente` varchar(200) NOT NULL,
   `telefono` varchar(100) NOT NULL,
   `estado_id` int(11) DEFAULT NULL,
-  `fecha` datetime NOT NULL
+  `fecha` datetime NOT NULL,
+  `observacion` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `productos_espera`
 --
 
-INSERT INTO `productos_espera` (`id`, `producto`, `nombre_producto`, `sucursal`, `cliente`, `telefono`, `estado_id`, `fecha`) VALUES
-(1, '100-000', 'Cadena 428x104 Generica', 'BEJ', 'Jaime Irazabal', '04143299925', 1, '2016-04-02 02:47:58'),
-(2, '100-000', 'Cadena 428x104 Generica', 'BEJ', 'Jaime Irazabal', '04143299925', 1, '2016-04-02 02:47:58'),
-(3, '100-411', 'Swichera Jaguar Tanque Grande (Kit)', 'BEJ', 'Jonas Aponte', '123456789', NULL, '2016-04-02 03:47:00'),
-(4, '100-632', 'SWICHERA  LEON GN125 (Kit)', 'MCY', 'Cesar', '48985615', NULL, '2016-04-02 03:47:00');
+INSERT INTO `productos_espera` (`id`, `producto`, `nombre_producto`, `sucursal`, `cliente`, `telefono`, `estado_id`, `fecha`, `observacion`) VALUES
+(1, '100-000', 'Cadena 428x104 Generica', 'BEJ', 'Jaime Irazabal', '04143299925', 1, '2016-04-02 02:47:58', NULL),
+(2, '100-000', 'Cadena 428x104 Generica', 'BEJ', 'Jaime Irazabal', '04143299925', 2, '2016-04-02 02:47:58', NULL),
+(3, '100-411', 'Swichera Jaguar Tanque Grande (Kit)', 'BEJ', 'Jonas Aponte', '123456789', NULL, '2016-04-02 03:47:00', NULL),
+(4, '100-632', 'SWICHERA  LEON GN125 (Kit)', 'MCY', 'Cesar', '48985615', 3, '2016-04-02 03:47:00', NULL),
+(5, '100-145', 'Swichera HORSE MODELO NUEVO (Kit)', 'MTB', 'Armando Reveron', '987654321', NULL, '2016-04-02 04:40:28', NULL),
+(6, '100-411', 'Swichera Jaguar Tanque Grande (Kit)', 'BEJ', 'Rafael Campos', '951891131', 2, '2016-04-02 04:44:37', 'observacion');
 
 -- --------------------------------------------------------
 
@@ -436,12 +441,12 @@ ALTER TABLE `stockmaster`
 -- AUTO_INCREMENT de la tabla `estado`
 --
 ALTER TABLE `estado`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `productos_espera`
 --
 ALTER TABLE `productos_espera`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

@@ -1,7 +1,13 @@
 <div class="row">
 	<div class="col-md-1"></div>
 	<div class="col-md-10">
-		<h2>Estado</h2>
+		<div class="row">
+			<div class="col-md-6"><h2>Estado</h2></div>
+			<div class="col-md-6">
+				<br>
+				<?php echo Html::link("index/lista","Lista de Productos","class='btn btn-success'") ?>
+			</div>
+		</div>
 		<?php View::content() ?>
 		<div class="col-md-6">
 			<h2>Selecciona el estado</h2>
@@ -36,6 +42,10 @@
 				<thead>
 					<th>Telefono</th>
 					<th><?php echo $productos_espera->telefono ?></th>
+				</thead>
+				<thead>
+					<th>Observacion</th>
+					<th><?php echo $productos_espera->observacion ?></th>
 				</thead>
 				<thead>
 					<th>Fecha</th>

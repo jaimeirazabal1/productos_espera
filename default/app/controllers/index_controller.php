@@ -30,7 +30,8 @@ class IndexController extends AppController
     																	  productos_espera.cliente,
     																	  productos_espera.telefono,
     																	  productos_espera.fecha,
-    																	  estado.nombre");
+    																	  estado.nombre",
+                                                                "order: id desc");
     }
     public function ver($id){
     	if (Input::hasPost("productos_espera")) {
