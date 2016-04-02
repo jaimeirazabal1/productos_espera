@@ -9,25 +9,26 @@
         </center>
         <?php echo Form::open("","post","autocomplete='off'") ?>
         <div class="form-group">
-            <label for="">Productos</label>
+            <p class="alert alert-info">Ingrese algun codigo y a continuacion coloque el cursor en la casilla de nombre de producto, para desplegar las coincidencias *</p>
+            <label for="">Productos *</label>
             <input type="text" class="form-control" name="productos_espera[producto]" id="codigo-producto" placeholder="Codigo de producto">
             <?php echo Form::text("productos_espera.nombre_producto","class='form-control' required placeholder='Nombre del producto' ") ?>
         </div>
         <div class="form-group">
-            <label for="">Almacen</label>
-            <?php echo Form::select("productos_espera.sucursal",$almacenes,"class='form-control'") ?>
+            <label for="">Almacen *</label>
+            <?php echo Form::select("productos_espera.sucursal",$almacenes,"class='form-control' required") ?>
         </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">Nombre del Cliente</label>
-                    <?php echo Form::text("productos_espera.cliente","class='form-control'") ?>
+                    <label for="">Nombre del Cliente *</label>
+                    <?php echo Form::text("productos_espera.cliente","class='form-control' required") ?>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="">Teléfono</label>
-                    <?php echo Form::text("productos_espera.telefono","class='form-control'") ?>
+                    <label for="">Teléfono *</label>
+                    <?php echo Form::text("productos_espera.telefono","class='form-control' required") ?>
                 </div>  
             </div>
         </div>
