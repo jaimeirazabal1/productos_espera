@@ -20,6 +20,7 @@ class IndexController extends AppController
     		}
 
     	}
+        $this->estados = Load::model("estado")->find("order: id asc","limit: 1");
         $this->almacenes = Load::model("locations")->getForCombo();
     }
     public function lista(){

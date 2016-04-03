@@ -20,7 +20,7 @@
                 </div>
             </div>
             
-            <?php echo Form::hidden("productos_espera.nombre_producto","class='form-control' required placeholder='Nombre del producto' ") ?>
+            <?php echo Form::text("productos_espera.nombre_producto","class='form-control' readonly required placeholder='Nombre del producto' ") ?>
         </div>
         <div class="form-group">
             <label for="">Almacen *</label>
@@ -44,6 +44,7 @@
             <label for="">Observacion</label>
             <?php echo Form::textarea("productos_espera.observacion","class='form-control'") ?>
         </div>
+        <?php echo Form::hidden("productos_espera.estado_id",NULL,$estados[0]->id) ?>
         <?php echo Form::hidden("productos_espera.fecha",NULL,date("Y-m-d H:i:s")) ?>
         <?php echo Form::submit("Guardar","class='btn btn-success btn_submit'") ?>
         <?php echo Form::reset('Borrar Campos',"class='btn btn-default'") ?>
@@ -71,6 +72,8 @@
                             $(".btn_submit").prop("disabled",false)
 
                         }else{
+                            $("#productos_espera_nombre_producto").val("")
+
                             alert("El producto no existe!");
                             $(".btn_submit").prop("disabled",true)
                         }
