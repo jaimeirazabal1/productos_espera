@@ -9,6 +9,10 @@
 			<?php echo Form::hidden("estado.id") ?>
 			<?php echo Form::text("estado.nombre","class='form-control'") ?>
 		</div>
+		<div class="form-group">
+			<label for="">Color</label>
+			<input type="color" name="estado[color]" value="<?php echo $estado->color ?>">
+		</div>
 		<?php echo Form::submit("Agregar","class='btn btn-success'") ?>
 		<?php echo Html::link("estado/lista","Ir a la Lista","class='btn btn-success'") ?>
 		<?php echo Form::close() ?>

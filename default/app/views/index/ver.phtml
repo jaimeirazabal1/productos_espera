@@ -10,6 +10,21 @@
 		</div>
 		<?php View::content() ?>
 		<div class="col-md-6">
+			<h2>Estados registrados</h2>
+			<table class="table table-bordered table-striped">
+				<thead>
+					<th>Estado</th>
+					<th>Fecha</th>
+				</thead>
+				<?php $count=0; ?>
+				<?php foreach ($estados as $key => $value): ?>
+					<tr style="background-color: <?php echo $value->color ?>">
+						<td><?php echo $value->nombre ?> <?php if($count===0){ echo "<div style='color:white'>(Actual)</div>"; } ?></td>
+						<td><?php echo $value->creado ?></td>
+					</tr>
+				<?php $count++ ?>
+				<?php endforeach ?>
+			</table>
 			<h2>Selecciona el estado</h2>
 			<?php echo Form::open() ?>
 			<div class="form-group">

@@ -13,6 +13,19 @@ class IndexController extends AppController
     	if (Input::hasPost("productos_espera")) {
     		$registro = Load::model("productos_espera",Input::post('productos_espera'));
     		if ($registro->save()) {
+
+                $id = $registro->last_id();
+                $estado_productos = Load::model("estado_productos",array('estado_id'=>$_POST['productos_espera']['estado_id'],
+                                                                        'productos_espera_id'=>$id,
+                                                                        'creado'=>date('Y-m-d H:i:s')));
+                if ($estado_productos->save()) {
+                    $id_ = $estado_productos->last_id();
+                    $registro_ultimo = Load::model("productos_espera")->find($id);
+                    $registro_ultimo->estado_producto_id = $id_;
+                    if (!$registro_ultimo->update()) {
+                        Flash::error("Ocurrio un error ".__LINE__);
+                    } 
+                }
     			Flash::valid("Registro realizado!"); 
                 Input::delete();
     		}else{
@@ -24,29 +37,27 @@ class IndexController extends AppController
         $this->almacenes = Load::model("locations")->getForCombo();
     }
     public function lista(){
-    	$this->registros = Load::model("productos_espera")->find("join: left join estado on productos_espera.estado_id = estado.id",
-    															"columns: productos_espera.id,
-    																	  productos_espera.producto,
-    																	  productos_espera.nombre_producto,
-    																	  productos_espera.sucursal,
-    																	  productos_espera.cliente,
-    																	  productos_espera.telefono,
-    																	  productos_espera.fecha,
-    																	  estado.nombre",
-                                                                "order: id desc");
+    	$this->registros = Load::model("productos_espera")->find("order: id desc");
+        $this->objeto_estados = Load::model("estado_productos");
     }
     public function ver($id){
     	if (Input::hasPost("productos_espera")) {
     		$post = Input::post("productos_espera");
     		$registro = Load::model("productos_espera")->find($post['id']);
-    		$registro->estado_id = $post['estado_id'];
-    		if ($registro->update()) {
-    			Flash::valid("Estado Actualizado con exito!");
-    		}else{
-    			Flash::error("No se pudo actualizar el registro!");
-    		}
+            $id = Load::model('estado_productos')->agregar_nuevo($post['estado_id'],$post['id']);
+            if ($id) {
+                $registro->estado_producto_id = $id;
+        		if ($registro->update()) {
+        			Flash::valid("Estado Actualizado con exito!");
+        		}else{
+        			Flash::error("No se pudo actualizar el registro!");
+        		}
+            }else{
+                Flash::error('Ocurrio un error agregando el nuevo estado a la base de datos!');
+            }
     		Router::redirect("index/lista");
     	}
+        $this->estados = Load::model("estado_productos")->find('join: inner join estado on estado_productos.estado_id = estado.id',"conditions: productos_espera_id = '$id' ","columns: estado_productos.creado, estado.nombre, estado.color, estado_productos.id","order: creado desc");
     	$this->productos_espera = Load::model('productos_espera')->find($id);
     }
     public function buscar_por_codigo_producto($codigo){

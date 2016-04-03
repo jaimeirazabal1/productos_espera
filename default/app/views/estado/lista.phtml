@@ -23,7 +23,7 @@
 				</tr>
 			<?php else: ?>
 				<?php foreach ($estados as $key => $value): ?>
-					<tr>
+					<tr style="background-color: <?php echo $value->color ?>">
 						<td><?php echo $value->id ?></td>
 						<td><?php echo $value->nombre ?></td>
 						<td><?php echo Html::link("estado/editar/{$value->id}","Editar","class='btn btn-info'") ?></td>
