@@ -10,9 +10,11 @@ class IndexController extends AppController
 
     public function index()
     {
+
     	if (Input::hasPost("productos_espera")) {
     		$registro = Load::model("productos_espera",Input::post('productos_espera'));
-    		if ($registro->save()) {
+            echo $registro->fecha;
+    		if (!$registro->fecha_repetida($registro->fecha) and $registro->save()) {
 
                 $id = $registro->last_id();
                 $estado_productos = Load::model("estado_productos",array('estado_id'=>$_POST['productos_espera']['estado_id'],
@@ -27,10 +29,13 @@ class IndexController extends AppController
                     } 
                 }
     			Flash::valid("Registro realizado!"); 
-                Input::delete();
     		}else{
     			Flash::error("No se llevo a cabo el registro!");
+              
+
     		}
+            Input::delete();
+
 
     	}
         $this->estados = Load::model("estado")->find("order: id asc","limit: 1");

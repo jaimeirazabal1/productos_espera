@@ -38,11 +38,7 @@ CREATE TABLE `estado_productos` (
 -- Volcado de datos para la tabla `estado_productos`
 --
 
-INSERT INTO `estado_productos` (`id`, `estado_id`, `productos_espera_id`, `creado`) VALUES
-(1, 1, 1, '2016-04-03 05:17:57'),
-(2, 1, 2, '2016-04-03 05:18:29'),
-(3, 2, 2, '2016-04-03 06:13:43'),
-(4, 4, 2, '2016-04-03 06:13:57');
+
 
 --
 -- Índices para tablas volcadas
@@ -62,7 +58,7 @@ ALTER TABLE `estado_productos`
 -- AUTO_INCREMENT de la tabla `estado_productos`
 --
 ALTER TABLE `estado_productos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
