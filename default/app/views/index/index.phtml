@@ -11,8 +11,16 @@
         <div class="form-group">
             <p class="alert alert-info">Ingrese algun codigo y a continuacion coloque el cursor en la casilla de nombre de producto, para desplegar las coincidencias *</p>
             <label for="">Productos *</label>
-            <input type="text" class="form-control" name="productos_espera[producto]" id="codigo-producto" placeholder="Codigo de producto">
-            <?php echo Form::text("productos_espera.nombre_producto","class='form-control' required placeholder='Nombre del producto' ") ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="text" class="form-control" name="productos_espera[producto]" id="codigo-producto" placeholder="Codigo de producto">
+                </div>
+                <div class="col-md-6">
+                    <button class="btn btn-success" id="btn_buscar">Buscar</button>
+                </div>
+            </div>
+            
+            <?php echo Form::hidden("productos_espera.nombre_producto","class='form-control' required placeholder='Nombre del producto' ") ?>
         </div>
         <div class="form-group">
             <label for="">Almacen *</label>
@@ -37,8 +45,9 @@
             <?php echo Form::textarea("productos_espera.observacion","class='form-control'") ?>
         </div>
         <?php echo Form::hidden("productos_espera.fecha",NULL,date("Y-m-d H:i:s")) ?>
-        <?php echo Form::submit("Guardar","class='btn btn-success'") ?>
-        <?php echo Html::link("index/lista","Lista de Productos","class='btn btn-success'") ?>
+        <?php echo Form::submit("Guardar","class='btn btn-success btn_submit'") ?>
+        <?php echo Form::reset('Borrar Campos',"class='btn btn-default'") ?>
+        <!-- <?php //echo Html::link("index/lista","Lista de Productos","class='btn btn-success'") ?> -->
         <?php echo Form::close() ?>
     </div>
     <div class="col-md-4"></div>
@@ -46,8 +55,8 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#codigo-producto").keyup(function(){
-            var valor = $(this).val();
+        $("#btn_buscar").click(function(){
+            var valor = $("#codigo-producto").val();
             cargando(true)
             if (valor) {
                 $.ajax({
@@ -56,29 +65,20 @@
                         cargando(false)
 
                         if (r.length) {
-                            resultados = [];
-                            for (var i = 0; i < r.length; i++) {
-                                resultados.push({label:r[i].description,id:r[i].stockid})
-                            }
-                            $( "#productos_espera_nombre_producto" ).autocomplete({
-                                minLength: 0,
-                                source: resultados
-                                ,
-                                select:function(event, selected){
-                                    console.log(selected)
-                                    //$("#codigo-producto").val(b.item.value)
-                                    $("#productos_espera_nombre_producto").val(selected.item.label)
-                                    $("#codigo-producto").val(selected.item.id)
-                                }
-                            }).on("focus", function () {
-                                $(this).autocomplete("search", "");
-                            });
+                            alert("El Producto fue encontrado con exito")
+                            alert(r[0].description)
+                            $("#productos_espera_nombre_producto").val(r[0].description)
+                            $(".btn_submit").prop("disabled",false)
 
+                        }else{
+                            alert("El producto no existe!");
+                            $(".btn_submit").prop("disabled",true)
                         }
                     }
                 })
 
             }
+            return false;
         });
     })
     function cargando(boleano){

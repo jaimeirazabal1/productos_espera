@@ -14,6 +14,7 @@ class IndexController extends AppController
     		$registro = Load::model("productos_espera",Input::post('productos_espera'));
     		if ($registro->save()) {
     			Flash::valid("Registro realizado!"); 
+                Input::delete();
     		}else{
     			Flash::error("No se llevo a cabo el registro!");
     		}

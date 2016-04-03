@@ -25,3 +25,9 @@ CREATE TABLE `productos_espera` (
   `fecha` datetime NOT NULL,
   `observacion` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `productos_espera`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `estado`
+  ADD PRIMARY KEY (`id`);
