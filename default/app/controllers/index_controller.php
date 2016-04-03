@@ -13,7 +13,7 @@ class IndexController extends AppController
 
     	if (Input::hasPost("productos_espera")) {
     		$registro = Load::model("productos_espera",Input::post('productos_espera'));
-            echo $registro->fecha;
+            //echo $registro->fecha;
     		if (!$registro->fecha_repetida($registro->fecha) and $registro->save()) {
 
                 $id = $registro->last_id();
