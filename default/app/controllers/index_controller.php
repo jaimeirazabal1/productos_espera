@@ -29,14 +29,12 @@ class IndexController extends AppController
                     } 
                 }
     			Flash::valid("Registro realizado!"); 
+
     		}else{
     			Flash::error("No se llevo a cabo el registro!");
-              
 
     		}
-            Input::delete();
-
-
+            Router::toAction("");
     	}
         $this->estados = Load::model("estado")->find("order: id asc","limit: 1");
         $this->almacenes = Load::model("locations")->getForCombo();
