@@ -31,3 +31,11 @@ ALTER TABLE `productos_espera`
 
 ALTER TABLE `estado`
   ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `estado`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `productos_espera`
+--
+ALTER TABLE `productos_espera`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
