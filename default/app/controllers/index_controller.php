@@ -34,7 +34,7 @@ class IndexController extends AppController
     			Flash::error("No se llevo a cabo el registro!");
 
     		}
-            Router::toAction("");
+            Router::redirect("");
     	}
         $this->estados = Load::model("estado")->find("order: id asc","limit: 1");
         $this->almacenes = Load::model("locations")->getForCombo();

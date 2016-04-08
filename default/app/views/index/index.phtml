@@ -48,12 +48,13 @@
         <?php echo Form::hidden("productos_espera.fecha",NULL,date("Y-m-d H:i:s")) ?>
         <?php echo Form::submit("Guardar","class='btn btn-success btn_submit'") ?>
         <?php echo Form::reset('Borrar Campos',"class='btn btn-default'") ?>
+        <a href="http://www.quinchau.com/weberp" class="btn btn-default">Volver al Weberp</a>
+
         <!-- <?php //echo Html::link("index/lista","Lista de Productos","class='btn btn-success'") ?> -->
         <?php echo Form::close() ?>
     </div>
     <div class="col-md-4"></div>
 </div>
-
 <script type="text/javascript">
     $(document).ready(function(){
         $("#btn_buscar").click(function(){
@@ -61,7 +62,7 @@
             cargando(true)
             if (valor) {
                 $.ajax({
-                    url:"index/buscar_por_codigo_producto/"+valor,
+                    url:"<?php echo PUBLIC_PATH ?>"+"index/buscar_por_codigo_producto/"+valor,
                     success:function(r){
                         cargando(false)
 
