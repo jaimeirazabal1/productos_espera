@@ -40,7 +40,17 @@ class IndexController extends AppController
         $this->almacenes = Load::model("locations")->getForCombo();
     }
     public function lista(){
-    	$this->registros = Load::model("productos_espera")->find("order: id desc");
+    	$this->registros = Load::model("productos_espera")->find("order: id desc","join: inner join stockmaster on productos_espera.producto = stockmaster.stockid","columns: 
+                                stockmaster.description as nombre_producto,
+                                productos_espera.id,
+                                productos_espera.producto,
+                                productos_espera.sucursal,
+                                productos_espera.cliente,
+                                productos_espera.telefono,
+                                productos_espera.estado_producto_id,
+                                productos_espera.fecha,
+                                productos_espera.observacion");
+
         $this->objeto_estados = Load::model("estado_productos");
     }
     public function ver($id){
@@ -61,7 +71,17 @@ class IndexController extends AppController
     		Router::redirect("index/lista");
     	}
         $this->estados = Load::model("estado_productos")->find('join: inner join estado on estado_productos.estado_id = estado.id',"conditions: productos_espera_id = '$id' ","columns: estado_productos.creado, estado.nombre, estado.color, estado_productos.id","order: creado desc");
-    	$this->productos_espera = Load::model('productos_espera')->find($id);
+    	$this->productos_espera = Load::model('productos_espera')->
+        find_first("order: id desc","join: inner join stockmaster on productos_espera.producto = stockmaster.stockid","columns: 
+                                stockmaster.description as nombre_producto,
+                                productos_espera.id,
+                                productos_espera.producto,
+                                productos_espera.sucursal,
+                                productos_espera.cliente,
+                                productos_espera.telefono,
+                                productos_espera.estado_producto_id,
+                                productos_espera.fecha,
+                                productos_espera.observacion","conditions: id='$id'");
     }
     public function buscar_por_codigo_producto($codigo){
     	View::select(null,"json");
